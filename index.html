@@ -18,13 +18,15 @@
 
         table {
             margin: 0 auto;
-            cursor: url(http://cdn.attach.qdfuns.com/notes/pics/201702/12/115915n79d7hvffengpdxe.png), auto;
         }
 
         td {
             width: 95px;
             height: 95px;
             background: #00ff33;
+        }
+        .change{
+            background: red;
         }
     </style>
     <script type="text/javascript">
@@ -41,8 +43,7 @@
         function GameOver() {
             timeStop();
             playing = false;
-            clearMouse();
-            alert("遊戲結束！\n 你獲得的分數為：" score "\n 命中率為：" success);
+            clearMouse();            
             success = 0;
             score = 0;
             knock = 0;
@@ -69,14 +70,14 @@
         function show() {
             if (playing) {
                 var current = Math.floor(Math.random() * 25);
-                document.getElementById("td[" current "]").innerHTML = '<img src="http://cdn.attach.qdfuns.com/notes/pics/201702/12/115915w6tluu1gq8l1b54h.png">';
-                setTimeout("document.getElementById('td[" current "]').innerHtml=''", 3000); //使用 setTimeout()實現3秒後隱藏老鼠圖片
+                document.getElementById("td["+ current + "]").innerHTML = "HIT";
+                setTimeout("document.getElementById('td["+ current +"]').innerHtml=''", 3000); //使用 setTimeout()實現3秒後隱藏老鼠圖片
             }
         }
         //清除所有老鼠圖片
         function clearMouse() {
             for (var i = 0; i < 25; i) {
-                document.getElementById("td[" i "]").innerHTML = "";
+                document.getElementById("td["+ i +"]").innerHTML = "";
             }
         }
         //點選事件函式，判斷是否點中老鼠
@@ -86,13 +87,13 @@
                 return;
             } else {
                 beat = 1;
-                if (document.getElementById("td[" id "]").innerHTML != "") {
+                if (document.getElementById("td["+ id +"]").innerHTML != "") {
                     score = 1;
                     knock = 1;
                     success = knock / beat;
                     document.form1.success.value = success;
                     document.form1.score.value = score;
-                    document.getElementById("td[" id "]").innerHTML = "";
+                    document.getElementById("td["+ id +"]").innerHTML = "";
                 } else {
                     score = -1;
                     success = knock / beat;
