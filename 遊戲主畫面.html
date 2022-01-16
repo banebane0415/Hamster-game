@@ -227,9 +227,16 @@
         // }
         let SetMinute = 0;
         function checkwin() {
+            if (score <0){
+                score = 0;
+                SetMinute = 0;
+                document.getElementById("score").innerHTML = score;
+                window.alert("YOU LOSE!!");
+            }
             if (score >= 100) {
                 score = 0;
                 SetMinute = 0;
+                document.getElementById("score").innerHTML = score;
                 window.alert("YOU WIN!!");
                 
             }
