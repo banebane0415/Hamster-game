@@ -30,6 +30,15 @@
                 z-index: 99;
             }
 
+            strong {
+                position: absolute;
+                top: 3%;
+                left: 90%;
+                z-index: 110;
+                font-size: 100px;
+                color: red;
+            }
+
             img {
                 position: absolute;
             }
@@ -159,52 +168,55 @@
                 left: 650px;
                 z-index: -3;
             }
-            h2{
-                    position: absolute; top:30%; left:90%;
-                    z-index: 300;
-                }
+
+            h2 {
+                position: absolute;
+                top: 30%;
+                left: 90%;
+                z-index: 300;
+            }
         }
     </style>
     <script type="text/javascript">
 
-        window.onload = function () {
-            //setInterval("toggleSound()", 100);
-            //獲取box1
-            var box1 = document.getElementById("box1");
-            //繫結滑鼠移動事件
-            document.onmousemove = function (event) {
-                //解決相容問題
-                event = event || window.event;
+        // window.onload = function () {
+        //     //setInterval("toggleSound()", 100);
+        //     //獲取box1
+        //     var box1 = document.getElementById("box1");
+        //     //繫結滑鼠移動事件
+        //     document.onmousemove = function (event) {
+        //         //解決相容問題
+        //         event = event || window.event;
 
-                //獲取滾動滾動的距離。
-                //chrome認為滾動條是body。
-                //火狐等認為是瀏覽器的滾動條是html的。
-                var st = document.body.scrollTop || document.documentElement.scrollTop;
+        //         //獲取滾動滾動的距離。
+        //         //chrome認為滾動條是body。
+        //         //火狐等認為是瀏覽器的滾動條是html的。
+        //         var st = document.body.scrollTop || document.documentElement.scrollTop;
 
-                var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+        //         var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
 
-                console.log(st);
+        //         console.log(st);
 
 
 
-                //獲取到滑鼠的座標
-                //用於獲取滑鼠在當前的可見視窗的座標
-                //在IE8中不支援 相容IE8 則不要使用
-                var left = event.clientX;
-                var top = event.clientY;
+        //         //獲取到滑鼠的座標
+        //         //用於獲取滑鼠在當前的可見視窗的座標
+        //         //在IE8中不支援 相容IE8 則不要使用
+        //         var left = event.clientX;
+        //         var top = event.clientY;
 
-                //設定div的偏移量
-                box1.style.left = left + sl + "px";
-                box1.style.top = top + st + "px";
-            }
-        }
+        //         //設定div的偏移量
+        //         box1.style.left = left + sl + "px";
+        //         box1.style.top = top + st + "px";
+        //     }
+        // }
         //初始化        
         let time = document.getElementById("time");
         let combo = document.getElementById("combo");
 
         let flag = 0;
-        let sec = 0, count = 0;
-        let beYellow = new Array();
+        let sec = 0, score = 0;
+        let haveanimal = new Array();
         // function toggleSound() {
         //     var music = document.getElementById("vd");//獲取ID  
 
@@ -213,31 +225,56 @@
         //         music.play(); //沒有就播放 
         //     }
         // }
-        function hitmouse() {
-
+        let SetMinute = 0;
+        function checkwin() {
+            if (score >= 100) {
+                score = 0;
+                SetMinute = 0;
+                window.alert("YOU WIN!!");
+                
+            }
         }
-        function hitcat() {
-
+        function hitmouse(h) {
+            let now;
+            score = score + 5;
+            console.log(score);
+            document.getElementById("score").innerHTML = score;
+            console.log(now);
+            now = document.getElementById("a" + h);
+            now.setAttribute("src", "blank.png");
+            now.setAttribute("onclick", "");
+            checkwin();
         }
-        function turnback(h) {
+        function hitcat(h) {
+            score = score - 3;
+            console.log(score);
+            document.getElementById("score").innerHTML = score;
             let now;
             now = document.getElementById("a" + h);
-            now.setAttribute("src","blank.png");
+            now.setAttribute("src", "blank.png");
+            now.setAttribute("onclick", "");
+            checkwin();
+            
         }
         function showanimal(holenum, animalnum) {
             let now;
-            let h = holenum;
             if (animalnum == 0) {
                 now = document.getElementById("a" + holenum);
                 console.log(now);
                 now.setAttribute("src", "cat.png");
-                setTimeout("turnback(h)", 3000);
+                now.setAttribute("onclick", "hitcat(" + holenum + ")");
+
             } else if (animalnum == 1) {
                 now = document.getElementById("a" + holenum);
                 console.log(now);
                 now.setAttribute("src", "mouse.png");
-                setTimeout("turnback(h)", 3000);
+                now.setAttribute("onclick", "hitmouse(" + holenum + ")");
+
             }
+            setTimeout(function () {
+                now.setAttribute("src", "blank.png");
+                now.setAttribute("onclick", "");
+            }, 1300);
         }
         function chosehole() {
             let holenum = Math.floor(Math.random() * 9);
@@ -248,9 +285,9 @@
         }
         function start() {
             sec = 60, count = 0, flag = 1;
-            setInterval("chosehole()", 3000);
+            setInterval("chosehole()", 500);
         }
-        var SetMinute = 0;
+        
         function Check_Time() {
             SetMinute += 1;
             var Check_i = document.getElementById("Check_i");
@@ -272,7 +309,7 @@
         <source src="mus.mp3" type="audio/mpeg">
     </audio>
     <h1><img src="score.png" weight="100" height="100"></h1>
-    <p><img src="back.png" weight="50" height="50"></p>
+    <a href="https://banebane0415.github.io/Hamster-game/%E7%B6%B2%E7%A8%8B%E6%9C%9F%E6%9C%AB%E4%B8%BB%E9%A0%81.html"><p><img src="back.png" weight="50" height="50"></p></a>
     <div id="box1"><img src="hammer.png" weight="100" height="100"></div>
     <img id="p0" src="hole.png" class="hole1" heihgt="200px" width="200px">
     <img id="p1" src="hole.png" class="hole2" heihgt="200px" width="200px">
@@ -293,6 +330,7 @@
     <img id="a7" src="blank.png" class="blank8" heihgt="100px" width="100px">
     <img id="a8" src="blank.png" class="blank9" heihgt="100px" width="100px">
     <h2><span id="Check_Txt" style="color:red">時間計數：<span id="Check_i">0秒</span></h2>
+    <strong id="score">0</strong>
 </body>
 
 </html>
