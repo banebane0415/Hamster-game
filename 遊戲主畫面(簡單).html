@@ -217,14 +217,14 @@
         let flag = 0;
         let sec = 0, score = 0;
         let haveanimal = new Array();
-        // function toggleSound() {
-        //     var music = document.getElementById("vd");//獲取ID  
+        function toggleSound() {
+            var music = document.getElementById("vd");//獲取ID  
 
-        //     if (music.paused) { //判讀是否播放  
-        //         music.paused = false;
-        //         music.play(); //沒有就播放 
-        //     }
-        // }
+            if (music.paused) { //判讀是否播放  
+                music.paused = false;
+                music.play(); //沒有就播放 
+            }
+        }
         let SetMinute = 0;
         function checkwin() {
             if (score <0){
