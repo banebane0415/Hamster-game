@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>遊戲主畫面(簡單)</title>
+    <style type="text/css">
+        @media all {
+            h1 {
+                position: absolute;
+                top: 1%;
+                left: 85%;
+                z-index: 100;
+            }
+
+            p {
+                position: absolute;
+                top: 1%;
+                left: 1%;
+                z-index: 100;
+            }
+
+            #box1 {
+                width: 100px;
+                height: 100px;
+                background-color: none;
+
+                /*開啟box1的絕對定位*/
+                position: absolute;
+                z-index: 99;
+            }
+
+            strong {
+                position: absolute;
+                top: 3%;
+                left: 90%;
+                z-index: 110;
+                font-size: 100px;
+                color: red;
+            }
+
+            img {
+                position: absolute;
+            }
+
+            .hole1 {
+                position: absolute;
+                top: 100px;
+                left: 100px;
+                z-index: -1;
+            }
+
+            .hole2 {
+                position: absolute;
+                top: 250px;
+                left: 100px;
+                z-index: -1;
+            }
+
+            .hole3 {
+                position: absolute;
+                top: 400px;
+                left: 100px;
+                z-index: -1;
+            }
+
+            .hole4 {
+                position: absolute;
+                top: 100px;
+                left: 350px;
+                z-index: -1;
+            }
+
+            .hole5 {
+                position: absolute;
+                top: 250px;
+                left: 350px;
+                z-index: -1;
+            }
+
+            .hole6 {
+                position: absolute;
+                top: 400px;
+                left: 350px;
+                z-index: -1;
+            }
+
+            .hole7 {
+                position: absolute;
+                top: 100px;
+                left: 600px;
+                z-index: -1;
+            }
+
+            .hole8 {
+                position: absolute;
+                top: 250px;
+                left: 600px;
+                z-index: -1;
+            }
+
+            .hole9 {
+                position: absolute;
+                top: 400px;
+                left: 600px;
+                z-index: -1;
+            }
+
+            .blank1 {
+                position: absolute;
+                top: 10px;
+                left: 150px;
+                z-index: -3;
+            }
+
+            .blank2 {
+                position: absolute;
+                top: 160px;
+                left: 150px;
+                z-index: -3;
+            }
+
+            .blank3 {
+                position: absolute;
+                top: 310px;
+                left: 150px;
+                z-index: -3;
+            }
+
+            .blank4 {
+                position: absolute;
+                top: 10px;
+                left: 400px;
+                z-index: -3;
+            }
+
+            .blank5 {
+                position: absolute;
+                top: 160px;
+                left: 400px;
+                z-index: -3;
+            }
+
+            .blank6 {
+                position: absolute;
+                top: 310px;
+                left: 400px;
+                z-index: -3;
+            }
+
+            .blank7 {
+                position: absolute;
+                top: 10px;
+                left: 650px;
+                z-index: -3;
+            }
+
+            .blank8 {
+                position: absolute;
+                top: 160px;
+                left: 650px;
+                z-index: -3;
+            }
+
+            .blank9 {
+                position: absolute;
+                top: 310px;
+                left: 650px;
+                z-index: -3;
+            }
+
+            h2 {
+                position: absolute;
+                top: 30%;
+                left: 90%;
+                z-index: 300;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+
+        // window.onload = function () {
+        //     //setInterval("toggleSound()", 100);
+        //     //獲取box1
+        //     var box1 = document.getElementById("box1");
+        //     //繫結滑鼠移動事件
+        //     document.onmousemove = function (event) {
+        //         //解決相容問題
+        //         event = event || window.event;
+
+        //         //獲取滾動滾動的距離。
+        //         //chrome認為滾動條是body。
+        //         //火狐等認為是瀏覽器的滾動條是html的。
+        //         var st = document.body.scrollTop || document.documentElement.scrollTop;
+
+        //         var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+
+        //         console.log(st);
+
+
+
+        //         //獲取到滑鼠的座標
+        //         //用於獲取滑鼠在當前的可見視窗的座標
+        //         //在IE8中不支援 相容IE8 則不要使用
+        //         var left = event.clientX;
+        //         var top = event.clientY;
+
+        //         //設定div的偏移量
+        //         box1.style.left = left + sl + "px";
+        //         box1.style.top = top + st + "px";
+        //     }
+        // }
+        //初始化        
+        let time = document.getElementById("time");
+        let combo = document.getElementById("combo");
+
+        let flag = 0;
+        let sec = 0, score = 0;
+        let haveanimal = new Array();
+        // function toggleSound() {
+        //     var music = document.getElementById("vd");//獲取ID  
+
+        //     if (music.paused) { //判讀是否播放  
+        //         music.paused = false;
+        //         music.play(); //沒有就播放 
+        //     }
+        // }
+        let SetMinute = 0;
+        function checkwin() {
+            if (score <0){
+                score = 0;
+                SetMinute = 0;
+                document.getElementById("score").innerHTML = score;
+                window.alert("YOU LOSE!!");
+            }
+            if (score >= 100) {
+                score = 0;
+                SetMinute = 0;
+                document.getElementById("score").innerHTML = score;
+                window.alert("YOU WIN!!");
+                
+            }
+        }
+        function hitmouse(h) {
+            let now;
+            score = score + 5;
+            console.log(score);
+            document.getElementById("score").innerHTML = score;
+            console.log(now);
+            now = document.getElementById("a" + h);
+            now.setAttribute("src", "blank.png");
+            now.setAttribute("onclick", "");
+            checkwin();
+        }
+        function hitcat(h) {
+            score = score - 3;
+            console.log(score);
+            document.getElementById("score").innerHTML = score;
+            let now;
+            now = document.getElementById("a" + h);
+            now.setAttribute("src", "blank.png");
+            now.setAttribute("onclick", "");
+            checkwin();
+            
+        }
+        function showanimal(holenum, animalnum) {
+            let now;
+            if (animalnum == 0) {
+                now = document.getElementById("a" + holenum);
+                console.log(now);
+                now.setAttribute("src", "cat.png");
+                now.setAttribute("onclick", "hitcat(" + holenum + ")");
+
+            } else if (animalnum == 1) {
+                now = document.getElementById("a" + holenum);
+                console.log(now);
+                now.setAttribute("src", "mouse.png");
+                now.setAttribute("onclick", "hitmouse(" + holenum + ")");
+
+            }
+            setTimeout(function () {
+                now.setAttribute("src", "blank.png");
+                now.setAttribute("onclick", "");
+            }, 1300);
+        }
+        function chosehole() {
+            let holenum = Math.floor(Math.random() * 9);
+            console.log(holenum);
+            let animalnum = Math.floor(Math.random() * 2);
+            console.log(animalnum);//0 cat 1 mouse
+            showanimal(holenum, animalnum);
+        }
+        function start() {
+            sec = 60, count = 0, flag = 1;
+            setInterval("chosehole()", 500);
+        }
+        
+        function Check_Time() {
+            SetMinute += 1;
+            var Check_i = document.getElementById("Check_i");
+
+            var Cal_Hour = Math.floor(SetMinute / 3600);
+            var Cal_Minute = Math.floor(Math.floor(SetMinute % 3600) / 60);
+            var Cal_Second = SetMinute % 60;
+
+            Check_i.innerHTML = Cal_Second + "秒";
+
+        }
+        var mm = window.setInterval("Check_Time()", 1000);
+        window.addEventListener("load", start, false);
+    </script>
+</head>
+
+<body>
+    <audio preload autoplay loop id="vd">
+        <source src="mus.mp3" type="audio/mpeg">
+    </audio>
+    <h1><img src="score.png" weight="100" height="100"></h1>
+    <a href="https://banebane0415.github.io/Hamster-game/%E7%B6%B2%E7%A8%8B%E6%A8%A1%E5%BC%8F%E9%81%B8%E6%93%87.html"><p><img src="back.png" weight="50" height="50"></p></a>
+    
+    <img id="p0" src="hole.png" class="hole1" heihgt="200px" width="200px">
+    <img id="p1" src="hole.png" class="hole2" heihgt="200px" width="200px">
+    <img id="p2" src="hole.png" class="hole3" heihgt="200px" width="200px">
+    <img id="p3" src="hole.png" class="hole4" heihgt="200px" width="200px">
+    <img id="p4" src="hole.png" class="hole5" heihgt="200px" width="200px">
+    <img id="p5" src="hole.png" class="hole6" heihgt="200px" width="200px">
+    <img id="p6" src="hole.png" class="hole7" heihgt="200px" width="200px">
+    <img id="p7" src="hole.png" class="hole8" heihgt="200px" width="200px">
+    <img id="p8" src="hole.png" class="hole9" heihgt="200px" width="200px">
+    <img id="a0" src="blank.png" class="blank1" heihgt="100px" width="100px">
+    <img id="a1" src="blank.png" class="blank2" heihgt="100px" width="100px">
+    <img id="a2" src="blank.png" class="blank3" heihgt="100px" width="100px">
+    <img id="a3" src="blank.png" class="blank4" heihgt="100px" width="100px">
+    <img id="a4" src="blank.png" class="blank5" heihgt="100px" width="100px">
+    <img id="a5" src="blank.png" class="blank6" heihgt="100px" width="100px">
+    <img id="a6" src="blank.png" class="blank7" heihgt="100px" width="100px">
+    <img id="a7" src="blank.png" class="blank8" heihgt="100px" width="100px">
+    <img id="a8" src="blank.png" class="blank9" heihgt="100px" width="100px">
+    <h2><span id="Check_Txt" style="color:red">時間計數：<span id="Check_i">0秒</span></h2>
+    <strong id="score">0</strong>
+</body>
+
+</html>
