@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>遊戲主畫面(簡單)</title>
+    <title>遊戲主畫面(普通)</title>
     <style type="text/css">
         @media all {
             h1 {
@@ -227,7 +227,7 @@
         // }
         let SetMinute = 0;
         function checkwin() {
-            if (score <0){
+            if (score < 0) {
                 score = 0;
                 SetMinute = 0;
                 document.getElementById("score").innerHTML = score;
@@ -237,7 +237,8 @@
                 score = 0;
                 SetMinute = 0;
                 document.getElementById("score").innerHTML = score;
-                window.alert("YOU WIN!!");                
+                window.alert("YOU WIN!!");
+
             }
         }
         function hitmouse(h) {
@@ -260,7 +261,17 @@
             now.setAttribute("src", "blank.png");
             now.setAttribute("onclick", "");
             checkwin();
-            
+
+        }
+        function hitbomb(h) {
+            console.log(score);
+            document.getElementById("score").innerHTML = score;
+            let now;
+            now = document.getElementById("a" + h);
+            now.setAttribute("src", "blank.png");
+            now.setAttribute("onclick", "");
+            checkwin();
+
         }
         function showanimal(holenum, animalnum) {
             let now;
@@ -287,20 +298,41 @@
                         now.setAttribute("onclick", "");
                     }                    
                 }, 1300);
-            }            
+
+            } else if (animalnum == 2) {
+                now = document.getElementById("a" + holenum);
+                console.log(now);
+                now.setAttribute("src", "bomb.png");
+                now.setAttribute("onclick", "hitbomb(" + holenum + ")");                
+                
+                setTimeout(function () {
+                    if (now.getAttribute("src")=="bomb.png") {
+                        now.setAttribute("src", "boom.png");
+                        now.setAttribute("onclick", "");
+                        score = score - 10;
+                        checkwin();
+                        setTimeout(function (){                            
+                            now.setAttribute("src", "blank.png");
+                        },200);
+                        document.getElementById("score").innerHTML = score;
+                    }
+
+                }, 2800);
+
+            }
         }
         function chosehole() {
             let holenum = Math.floor(Math.random() * 9);
             console.log(holenum);
-            let animalnum = Math.floor(Math.random() * 2);
-            console.log(animalnum);//0 cat 1 mouse
+            let animalnum = Math.floor(Math.random() * 3);
+            console.log(animalnum);//0 cat 1 mouse 2 bomb
             showanimal(holenum, animalnum);
         }
         function start() {
             sec = 60, count = 0, flag = 1;
             setInterval("chosehole()", 500);
         }
-        
+
         function Check_Time() {
             SetMinute += 1;
             var Check_i = document.getElementById("Check_i");
@@ -312,8 +344,10 @@
             Check_i.innerHTML = Cal_Second + "秒";
 
         }
+
         var mm = window.setInterval("Check_Time()", 1000);
         window.addEventListener("load", start, false);
+
     </script>
 </head>
 
@@ -322,8 +356,10 @@
         <source src="mus.mp3" type="audio/mpeg">
     </audio>
     <h1><img src="score.png" weight="100" height="100"></h1>
-    <a href="https://banebane0415.github.io/Hamster-game/%E7%B6%B2%E7%A8%8B%E6%A8%A1%E5%BC%8F%E9%81%B8%E6%93%87.html"><p><img src="back.png" weight="50" height="50"></p></a>
-    
+    <a href="https://banebane0415.github.io/Hamster-game/%E7%B6%B2%E7%A8%8B%E6%A8%A1%E5%BC%8F%E9%81%B8%E6%93%87.html">
+        <p><img src="back.png" weight="50" height="50"></p>
+    </a>
+
     <img id="p0" src="hole.png" class="hole1" heihgt="200px" width="200px">
     <img id="p1" src="hole.png" class="hole2" heihgt="200px" width="200px">
     <img id="p2" src="hole.png" class="hole3" heihgt="200px" width="200px">
