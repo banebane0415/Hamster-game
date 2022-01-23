@@ -32,8 +32,8 @@
 
             strong {
                 position: absolute;
-                top: 3%;
-                left: 90%;
+                top: 10%;
+                left: 91%;
                 z-index: 110;
                 font-size: 100px;
                 color: red;
@@ -169,6 +169,78 @@
                 z-index: -3;
             }
 
+            .score1 {
+                position: absolute;
+                top: 5px;
+                left: 100px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score2 {
+                position: absolute;
+                top: 155px;
+                left: 100px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score3 {
+                position: absolute;
+                top: 305px;
+                left: 100px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score4 {
+                position: absolute;
+                top: 5px;
+                left: 350px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score5 {
+                position: absolute;
+                top: 155px;
+                left: 350px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score6 {
+                position: absolute;
+                top: 305px;
+                left: 350px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score7 {
+                position: absolute;
+                top: 5px;
+                left: 600px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score8 {
+                position: absolute;
+                top: 155px;
+                left: 600px;
+                z-index: -3;
+                color: blue;
+            }
+
+            .score9 {
+                position: absolute;
+                top: 305px;
+                left: 600px;
+                z-index: -3;
+                color: blue;
+            }
+
             h2 {
                 position: absolute;
                 top: 30%;
@@ -179,72 +251,51 @@
     </style>
     <script type="text/javascript">
 
-        // window.onload = function () {
-        //     //setInterval("toggleSound()", 100);
-        //     //獲取box1
-        //     var box1 = document.getElementById("box1");
-        //     //繫結滑鼠移動事件
-        //     document.onmousemove = function (event) {
-        //         //解決相容問題
-        //         event = event || window.event;
-
-        //         //獲取滾動滾動的距離。
-        //         //chrome認為滾動條是body。
-        //         //火狐等認為是瀏覽器的滾動條是html的。
-        //         var st = document.body.scrollTop || document.documentElement.scrollTop;
-
-        //         var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
-
-        //         console.log(st);
-
-
-
-        //         //獲取到滑鼠的座標
-        //         //用於獲取滑鼠在當前的可見視窗的座標
-        //         //在IE8中不支援 相容IE8 則不要使用
-        //         var left = event.clientX;
-        //         var top = event.clientY;
-
-        //         //設定div的偏移量
-        //         box1.style.left = left + sl + "px";
-        //         box1.style.top = top + st + "px";
-        //     }
-        // }
-        //初始化        
         let time = document.getElementById("time");
         let combo = document.getElementById("combo");
 
         let flag = 0;
         let sec = 0, score = 0;
         let haveanimal = new Array();
-        // function toggleSound() {
-        //     var music = document.getElementById("vd");//獲取ID  
+        function toggleSound() {
+            var music = document.getElementById("vd");//獲取ID  
 
-        //     if (music.paused) { //判讀是否播放  
-        //         music.paused = false;
-        //         music.play(); //沒有就播放 
-        //     }
-        // }
+            if (music.paused) { //判讀是否播放  
+                music.paused = false;
+                music.play(); //沒有就播放 
+            }
+        }
         let SetMinute = 0;
+        
+            
+        
         function checkwin() {
             if (score < 0) {
                 score = 0;
                 SetMinute = 0;
                 document.getElementById("score").innerHTML = score;
                 window.alert("YOU LOSE!!");
+                history.go(0);
             }
             if (score >= 100) {
                 score = 0;
                 SetMinute = 0;
                 document.getElementById("score").innerHTML = score;
                 window.alert("YOU WIN!!");
-
+                history.go(0);
             }
+
         }
         function hitmouse(h) {
             let now;
             score = score + 5;
             console.log(score);
+            let word;
+            word = document.getElementById("w" + h);
+            word.innerHTML = "+5";
+            setTimeout(function () {
+                word.innerHTML = "";
+            }, 200);
             document.getElementById("score").innerHTML = score;
             console.log(now);
             now = document.getElementById("a" + h);
@@ -255,6 +306,12 @@
         function hitcat(h) {
             score = score - 3;
             console.log(score);
+            let word;
+            word = document.getElementById("w" + h);
+            word.innerHTML = "-3";
+            setTimeout(function () {
+                word.innerHTML = "";
+            }, 200);
             document.getElementById("score").innerHTML = score;
             let now;
             now = document.getElementById("a" + h);
@@ -265,6 +322,7 @@
         }
         function hitbomb(h) {
             console.log(score);
+
             document.getElementById("score").innerHTML = score;
             let now;
             now = document.getElementById("a" + h);
@@ -281,7 +339,7 @@
                 now.setAttribute("src", "cat.png");
                 now.setAttribute("onclick", "hitcat(" + holenum + ")");
                 setTimeout(function () {
-                    if (now.getAttribute("src")=="cat.png"){
+                    if (now.getAttribute("src") == "cat.png") {
                         now.setAttribute("src", "blank.png");
                         now.setAttribute("onclick", "");
                     }
@@ -293,27 +351,28 @@
                 now.setAttribute("src", "mouse.png");
                 now.setAttribute("onclick", "hitmouse(" + holenum + ")");
                 setTimeout(function () {
-                    if (now.getAttribute("src")=="mouse.png"){
+                    if (now.getAttribute("src") == "mouse.png") {
                         now.setAttribute("src", "blank.png");
                         now.setAttribute("onclick", "");
-                    }                    
+                    }
                 }, 1300);
 
             } else if (animalnum == 2) {
                 now = document.getElementById("a" + holenum);
                 console.log(now);
-                now.setAttribute("src", "bomb.png");
-                now.setAttribute("onclick", "hitbomb(" + holenum + ")");                
-                
+                now.setAttribute("src", "bomb.png");                
+                now.setAttribute("onclick", "hitbomb(" + holenum + ")");
+
                 setTimeout(function () {
-                    if (now.getAttribute("src")=="bomb.png") {
+                    if (now.getAttribute("src") == "bomb.png") {
                         now.setAttribute("src", "boom.png");
+                        
                         now.setAttribute("onclick", "");
                         score = score - 10;
-                        checkwin();
-                        setTimeout(function (){                            
+                        checkwin();                        
+                        setTimeout(function () {
                             now.setAttribute("src", "blank.png");
-                        },200);
+                        }, 200);
                         document.getElementById("score").innerHTML = score;
                     }
 
@@ -355,7 +414,7 @@
     <audio preload autoplay loop id="vd">
         <source src="mus.mp3" type="audio/mpeg">
     </audio>
-    <h1><img src="score.png" weight="100" height="100"></h1>
+    <h1><img src="score.jfif" weight="200" height="200"></h1>
     <a href="https://banebane0415.github.io/Hamster-game/%E7%B6%B2%E7%A8%8B%E6%A8%A1%E5%BC%8F%E9%81%B8%E6%93%87.html">
         <p><img src="back.png" weight="50" height="50"></p>
     </a>
@@ -378,8 +437,18 @@
     <img id="a6" src="blank.png" class="blank7" heihgt="100px" width="100px">
     <img id="a7" src="blank.png" class="blank8" heihgt="100px" width="100px">
     <img id="a8" src="blank.png" class="blank9" heihgt="100px" width="100px">
-    <h2><span id="Check_Txt" style="color:red">時間計數：<span id="Check_i">0秒</span></h2>
-    <strong id="score">0</strong>
+    <h1 id="w0" class="score1"></h1>
+    <h2 id="w1" class="score2">
+        </h1>
+        <h1 id="w2" class="score3"></h1>
+        <h1 id="w3" class="score4"></h1>
+        <h1 id="w4" class="score5"></h1>
+        <h1 id="w5" class="score6"></h1>
+        <h1 id="w6" class="score7"></h1>
+        <h1 id="w7" class="score8"></h1>
+        <h1 id="w8" class="score9"></h1>
+        <h2><span id="Check_Txt" style="color:red">時間計數：<span id="Check_i">0秒</span></h2>
+        <strong id="score">0</strong>
 </body>
 
 </html>
